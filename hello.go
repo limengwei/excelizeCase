@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "hellogui/routers"
 	"strings"
 
 	"github.com/astaxie/beego"
@@ -14,7 +15,6 @@ import (
 func main() {
 	var wv *walk.WebView
 
-	beego.Router("/", &MainCtrl{})
 	go beego.Run()
 
 	MainWindow{
@@ -39,12 +39,4 @@ func main() {
 			},
 		},
 	}.Run()
-}
-
-type MainCtrl struct {
-	beego.Controller
-}
-
-func (c *MainCtrl) Get() {
-	c.TplName = "index.html"
 }

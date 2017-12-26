@@ -3,8 +3,35 @@
 	 overflow-x: hidden;
     overflow-y: hidden;
 }
+
+ table{border-right:1px solid #F00;border-bottom:1px solid #F00;border-collapse:collapse} 
+ table td{border-left:1px solid #F00;border-top:1px solid #F00} 
 </style>
 
 <h1>hello world</h1>
 
 其实我是一个网页
+
+<hr>
+<h2>读取xlsx示例:</h2>
+<table border="0" cellspacing="0" cellpadding="0"   style="text-align:center;width:50%;">
+
+	<tr>
+		{{range .thList}}
+			<td>{{.}}</th>
+		{{end}}
+	</tr>
+	
+	{{range .trList}}	
+		<tr>
+			{{range .}}
+				<td>{{.}}</td>
+			{{end}}
+		</tr>
+	{{end}}
+</table>
+
+
+<script>
+
+</script>
