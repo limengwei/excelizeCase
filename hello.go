@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "hellogui/routers"
+	_ "helloexcel/routers"
 	"strings"
 
 	"github.com/astaxie/beego"

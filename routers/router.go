@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"hellogui/controllers"
+	"helloexcel/controllers"
 
 	"github.com/astaxie/beego"
 )
