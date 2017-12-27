@@ -15,7 +15,7 @@ import (
 func main() {
 	var wv *walk.WebView
 
-	go beego.Run()
+	go beego.Run(":8080")
 
 	MainWindow{
 		Icon:    Bind("'office.ico'"),

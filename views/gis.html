@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+  integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+  crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+  integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+  crossorigin=""></script>
+
+ <script type="text/javascript" src='../static/js/leaflet.ChineseTmsProviders.js'></script>
+
+<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		#map {
+			width: 600px;
+			height: 400px;
+		}
+	</style>
+
+<div id='map'></div>
+
+
+<script>
+
+	//标记聚合(根据不同缩放级别显示不同数量)
+	//https://github.com/MazeMap/Leaflet.LayerGroup.Collision
+	//动画效果显示路段
+	//https://rubenspgcavalcante.github.io/leaflet-ant-path/
+
+	var normalm = L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
+    maxZoom: 18,
+    minZoom: 5
+	});
+	var imgm = L.tileLayer.chinaProvider('GaoDe.Satellite.Map', {
+    maxZoom: 18,
+    minZoom: 5
+	});
+	var imga = L.tileLayer.chinaProvider('GaoDe.Satellite.Annotion', {
+	    maxZoom: 18,
+	    minZoom: 5
+	});
+
+	var normal = L.layerGroup([normalm]),
+	    image = L.layerGroup([imgm, imga]);
+
+	
+	var map = L.map('map', {
+		center: [34.772147,113.72721],
+		zoom: 14,
+		layers: [normal],
+	});
+	
+	
+		L.marker([34.780889,113.727811]).bindPopup('This is Littleton, CO.').addTo(map),
+	L.marker([34.772923, 113.735793]).bindPopup('This is Denver, CO.').addTo(map),
+	L.marker([34.767353, 113.727811]).bindPopup('This is Aurora, CO.').addTo(map),
+	L.marker([34.772405,113.718082]).bindPopup('This is Golden, CO.').addTo(map);
+
+	var baseLayers = {
+		"地图": normal,
+		"卫星":image
+	};
+
+
+	L.control.layers(baseLayers, null).addTo(map);
+</script>
+

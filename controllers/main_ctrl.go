@@ -1,21 +1,54 @@
 package controllers
 
-import "github.com/astaxie/beego"
+import (
+	"fmt"
+	"strconv"
 
-import "github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/astaxie/beego"
+
+	"github.com/astaxie/beego/orm"
+
+	_ "github.com/go-sql-driver/mysql"
+
+	"github.com/360EntSecGroup-Skylar/excelize"
+)
+
+type Xs struct {
+	Id     int64
+	Time   string
+	Amount string
+	Fee    string
+	Type   string
+	Status string
+}
+
+var o orm.Ormer
+
+func init() {
+	orm.RegisterDataBase("default", "mysql", "root:root@tcp(127.0.0.1:3306)/helloexcel?charset=utf8", 30)
+	orm.RegisterModel(new(Xs))
+	orm.RunSyncdb("default", false, true)
+
+	o = orm.NewOrm()
+}
 
 type MainCtrl struct {
 	beego.Controller
+}
+
+func (c *MainCtrl) Gis() {
+	c.TplName = "gis.html"
 }
 
 func (c *MainCtrl) Get() {
 	xlsx, err := excelize.OpenFile("./data/data.xlsx")
 
 	if err != nil {
+		fmt.Println(err)
 		c.Data["msg"] = err
 	}
 
-	rows := xlsx.GetRows("Sheet1")
+	rows := xlsx.GetRows("XS")
 
 	var thList = make([]string, 0)
 
@@ -26,15 +59,18 @@ func (c *MainCtrl) Get() {
 		var tdList = make([]string, 0)
 
 		for _, colCell := range row {
+
 			if i > 0 {
 
 				tdList = append(tdList, colCell)
 			} else {
 				thList = append(thList, colCell)
+
 			}
 		}
 		if i > 0 {
 			trList = append(trList, tdList)
+
 		}
 
 	}
@@ -43,4 +79,17 @@ func (c *MainCtrl) Get() {
 	c.Data["trList"] = trList
 
 	c.TplName = "index.html"
+}
+
+func xls2db(row []string) {
+	xs := Xs{}
+	xs.Id, _ = strconv.ParseInt(row[0], 10, 64)
+	xs.Time = row[1]
+	xs.Amount = row[2]
+	xs.Fee = row[3]
+	xs.Type = row[4]
+	xs.Status = row[5]
+
+	id, err := o.Insert(&xs)
+	fmt.Printf("ID: %d, ERR: %v\n", id, err)
 }

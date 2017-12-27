@@ -4,6 +4,10 @@
     overflow-y: hidden;
 }
 
+html,body{
+	overflow:scroll;
+}
+
  table{border-right:1px solid #F00;border-bottom:1px solid #F00;border-collapse:collapse} 
  table td,th{border-left:1px solid #F00;border-top:1px solid #F00} 
 </style>
@@ -14,7 +18,7 @@
 
 <hr>
 <h2>读取xlsx示例:</h2>
-<table border="0" cellspacing="0" cellpadding="0"   style="text-align:center;width:50%;">
+<table border="0" cellspacing="0" cellpadding="0"   style="text-align:center;width:80%;">
 
 	<tr>
 		{{range .thList}}
