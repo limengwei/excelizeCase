@@ -20,7 +20,7 @@ func main() {
 	MainWindow{
 		Icon:    Bind("'office.ico'"),
 		Title:   "FuckExcel",
-		MinSize: Size{800, 600},
+		MinSize: Size{1400, 900},
 		Layout:  VBox{MarginsZero: true},
 		Children: []Widget{
 			WebView{
