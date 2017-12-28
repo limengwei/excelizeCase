@@ -27,7 +27,7 @@ type Xs struct {
 
 var o orm.Ormer
 
-func init() {
+func test() {
 	orm.RegisterDataBase("default", "mysql", "root:root@tcp(127.0.0.1:3306)/helloexcel?charset=utf8", 30)
 	orm.RegisterModel(new(Xs))
 	orm.RunSyncdb("default", false, true)

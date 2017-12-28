@@ -1,9 +1,5 @@
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
-  integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
-  crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-  integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-  crossorigin=""></script>
+<link rel="stylesheet" href="../static/css/leaflet.css" crossorigin=""/>
+<script src="../static/js/leaflet.js" crossorigin=""></script>
 
  <script type="text/javascript" src='../static/js/leaflet.ChineseTmsProviders.js'></script>
 
@@ -39,7 +35,10 @@
 	//标记聚合(根据不同缩放级别显示不同数量)
 	//https://github.com/MazeMap/Leaflet.LayerGroup.Collision
 	//动画效果显示路段
-	//https://rubenspgcavalcante.github.io/leaflet-ant-path/
+	//https://github.com/rubenspgcavalcante/leaflet-ant-path
+	
+	//避免标签层叠
+	//https://github.com/yakitoritabetai/Leaflet.LabelTextCollision
 
 	var normalm = L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
     maxZoom: 18,
@@ -60,7 +59,7 @@
 	
 	var map = L.map('map', {
 		center: [38.52970803,117.2849699],
-		zoom: 14,
+		zoom: 12,
 		layers: [normal],
 	});
 	
@@ -113,7 +112,7 @@
 					
 					console.log(point)					
 					
-					map.panTo(new L.LatLng(point[0], point[1]));
+					map.panTo(new L.LatLng(point[1], point[0]));
 					
 				}
 			})	
