@@ -10,6 +10,9 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
+	"helloexcel/models"
+	_ "helloexcel/models"
+
 	"github.com/360EntSecGroup-Skylar/excelize"
 )
 
@@ -36,7 +39,20 @@ type MainCtrl struct {
 	beego.Controller
 }
 
+type Gaosu struct {
+}
+
 func (c *MainCtrl) Gis() {
+
+	name := c.GetString("name", "")
+	if name != "" {
+		c.Data["json"] = models.GetByName(name)
+		c.ServeJSON()
+		return
+	}
+
+	c.Data["nameList"] = models.GetNameList()
+
 	c.TplName = "gis.html"
 }
 
