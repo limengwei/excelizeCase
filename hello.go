@@ -15,6 +15,7 @@ import (
 func main() {
 	var wv *walk.WebView
 
+	beego.BConfig.EnableGzip = true
 	go beego.Run(":8080")
 
 	MainWindow{
