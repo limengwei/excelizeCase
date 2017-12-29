@@ -27,10 +27,21 @@ type Xs struct {
 
 var o orm.Ormer
 
-func init() {
-	orm.RegisterDataBase("default", "mysql", "root:root@tcp(127.0.0.1:3306)/helloexcel?charset=utf8", 30)
+func hello() {
+	var err error
+	err = orm.RegisterDataBase("default", "mysql", "root:root@tcp(127.0.0.1:3306)/helloexcel?charset=utf8", 30)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	orm.RegisterModel(new(Xs))
-	orm.RunSyncdb("default", false, true)
+	err = orm.RunSyncdb("default", false, true)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	o = orm.NewOrm()
 }
